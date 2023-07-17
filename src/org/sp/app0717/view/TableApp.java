@@ -1,6 +1,8 @@
 package org.sp.app0717.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -8,15 +10,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import org.sp.app0717.controller.MyTableModel;
+import org.sp.app0717.controller.DeptTableModel;
+import org.sp.app0717.controller.EmpTableModel;
 
-public class TableApp extends JFrame{
+public class TableApp extends JFrame implements ActionListener{
 	JPanel p_north;
 	JButton bt_emp; //사원 가져오기
 	JButton bt_dept; //부서 가져오기 
 	JTable table;
 	JScrollPane scroll;
-	MyTableModel model;
+	EmpTableModel model;
+	DeptTableModel model2;
 		
 	public TableApp() {
 		p_north = new JPanel();
@@ -25,8 +29,10 @@ public class TableApp extends JFrame{
 		
 		//디자인과 로직,데이터를 분리시켜 개발하기 위한 MVC개발패턴을 적용한
 		//Table 의 생성자에서 지원하는 TableModel 이용해보기 
-		model = new MyTableModel();
-		table = new JTable(model);
+		model = new EmpTableModel();
+		model2 = new DeptTableModel();
+		
+		table = new JTable();
 		scroll = new JScrollPane(table);
 		
 		p_north.add(bt_emp);
@@ -38,6 +44,19 @@ public class TableApp extends JFrame{
 		setSize(800,600);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		bt_emp.addActionListener(this);
+		bt_dept.addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		
+		if(obj==bt_emp){ //사원 출력
+			table.setModel(model);
+		}else if(obj==bt_dept) {//부서 출력
+			table.setModel(model2);
+		}		
 	}
 	
 	public static void main(String[] args) {
