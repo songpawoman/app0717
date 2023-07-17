@@ -10,7 +10,8 @@ import org.sp.app0717.model.EmpDAO;
 public class EmpTableModel extends AbstractTableModel{
 	EmpDAO empDAO;
 	String[][] data;
-	
+	String[] column= {"EMPNO","ENAME","JOB","MGR","HIREDATE","SAL","COMM","DEPTNO"};
+
 	public EmpTableModel() {
 		empDAO = new EmpDAO();
 		data=empDAO.selectAll();//사원 정보 가져오기
@@ -25,6 +26,12 @@ public class EmpTableModel extends AbstractTableModel{
 		//System.out.println("getColumnCount() 호출");
 		return data[0].length;
 	}
+	
+	@Override
+	public String getColumnName(int col) {
+		return column[col];
+	}
+	
 	public Object getValueAt(int row, int col) {
 		//System.out.println("getValueAt("+row+", "+col+") 호출");
 		return data[row][col];

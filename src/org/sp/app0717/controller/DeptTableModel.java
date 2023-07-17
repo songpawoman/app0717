@@ -10,6 +10,7 @@ import org.sp.app0717.model.EmpDAO;
 public class DeptTableModel extends AbstractTableModel{
 	DeptDAO deptDAO;
 	String[][] data;
+	String[] column= {"DEPTNO","DNAME","LOC	"};
 	
 	public DeptTableModel() {
 		deptDAO = new DeptDAO();
@@ -25,6 +26,11 @@ public class DeptTableModel extends AbstractTableModel{
 		//System.out.println("getColumnCount() 호출");
 		return data[0].length;
 	}
+
+	public String getColumnName(int col) {
+		return column[col];
+	}
+	
 	public Object getValueAt(int row, int col) {
 		//System.out.println("getValueAt("+row+", "+col+") 호출");
 		return data[row][col];
